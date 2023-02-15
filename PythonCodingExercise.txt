@@ -13,7 +13,7 @@ Weather Data Description
 
 The wx_data directory has files containing weather data records from 1985-01-01 to 2014-12-31. Each file corresponds to a particular weather station from Nebraska, Iowa, Illinois, Indiana, or Ohio.
 
-Each line in the file contains 4 records separated by tabs: 
+Each line in the file contains 4 records separated by tabs:
 
 1. The date (YYYYMMDD format)
 2. The maximum temperature for that day (in tenths of a degree Celsius)
