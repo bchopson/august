@@ -1,2 +1,9 @@
 [tool.isort]
 profile = 'black'
+
+[tool.setuptools.packages.find]
+where = ["august"]
+
+[project]
+name = "august"
+version = "0.0.1"

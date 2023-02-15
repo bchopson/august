@@ -51,6 +51,9 @@ sqlalchemy==2.0.3
     # via
     #   -r common.txt
     #   flask-sqlalchemy
+    #   sqlalchemy-utils
+sqlalchemy-utils==0.40.0
+    # via -r common.txt
 typing-extensions==4.5.0
     # via
     #   -r common.txt

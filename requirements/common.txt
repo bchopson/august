@@ -23,7 +23,11 @@ markupsafe==2.1.2
     #   jinja2
     #   werkzeug
 sqlalchemy==2.0.3
-    # via flask-sqlalchemy
+    # via
+    #   flask-sqlalchemy
+    #   sqlalchemy-utils
+sqlalchemy-utils==0.40.0
+    # via -r common.in
 typing-extensions==4.5.0
     # via sqlalchemy
 werkzeug==2.2.3
