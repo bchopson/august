@@ -1,0 +1,14 @@
+version: '2'
+services:
+  august-pg:
+      image: postgres:15-alpine
+      container_name: august-pg
+      ports:
+        - '12432:5432'
+      environment:
+        POSTGRES_USER: august
+        POSTGRES_DB: august
+        # Only use trust auth for development
+        POSTGRES_HOST_AUTH_METHOD: trust
+      volumes:
+        - ./docker/:/docker-entrypoint-initdb.d
