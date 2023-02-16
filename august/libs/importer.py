@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Optional
 
 from august import model
-from august.app import db
+from august.model import db
 
 
 class WeatherDataImporter:

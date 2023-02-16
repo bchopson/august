@@ -1,4 +1,8 @@
+from pathlib import Path
+
+import click
 from apiflask import APIFlask
+from flask.cli import FlaskGroup
 
 
 def create_app():
@@ -17,4 +21,31 @@ def create_app():
     from august.views import api
 
     app.register_blueprint(api)
+
+    @app.cli.command()
+    def create_db():
+        """Create DB from models"""
+        db.create_all()
+
+    @app.cli.command()
+    @click.argument(
+        "directory", type=click.Path(exists=True, path_type=Path, file_okay=False)
+    )
+    def import_weather_data(directory: Path):
+        """Import weather data"""
+        from august.libs.importer import WeatherDataImporter
+
+        importer = WeatherDataImporter(directory)
+        importer.run()
+
+    @app.cli.command()
+    def calculate_summary_data():
+        """Calculate summary weather data"""
+        from august.libs.stats import calculate_summary_data
+
+        calculate_summary_data()
+
     return app
+
+
+cli = FlaskGroup(create_app=create_app)

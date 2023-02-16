@@ -2,7 +2,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import insert
 
 from august import model
-from august.app import db
+from august.model import db
 
 
 def calculate_summary_data():
