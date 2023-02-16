@@ -1,17 +1,21 @@
 import csv
 import datetime as dt
+import logging
 from pathlib import Path
 from typing import Optional
 
 from august import model
 from august.model import db
 
+log = logging.getLogger(__name__)
+
 
 class WeatherDataImporter:
     def __init__(self, source_dir: Path):
         self.source_dir = source_dir
 
-    def run(self):
+    def run(self) -> int:
+        log.info("Beginning weather data import")
         with db.session.begin():
             run = model.ImportRun.start()
         count = 0
@@ -19,6 +23,10 @@ class WeatherDataImporter:
             count += self.import_file(path)
         with db.session.begin():
             run.end(count)
+            log.info(
+                "Weather data import complete. % records imported or updated", count
+            )
+        return count
 
     def import_file(self, path: Path) -> int:
         count = 0

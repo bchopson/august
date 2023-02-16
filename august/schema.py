@@ -1,12 +1,12 @@
 from apiflask import Schema
-from marshmallow import fields
+from marshmallow import fields, validate
 
 MAX_PER_PAGE = 100
 
 
 class PaginationSchema(Schema):
     page = fields.Int()
-    per_page = fields.Int(max=MAX_PER_PAGE)
+    per_page = fields.Int(validate=validate.Range(max=MAX_PER_PAGE))
 
 
 class WeatherDataSchema(Schema):

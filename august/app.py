@@ -35,8 +35,12 @@ def create_app():
         """Import weather data"""
         from august.libs.importer import WeatherDataImporter
 
+        click.echo("Beginning weather data import")
         importer = WeatherDataImporter(directory)
-        importer.run()
+        count = importer.run()
+        click.echo(
+            f"Weather data import complete. {count} records imported or updated."
+        )
 
     @app.cli.command()
     def calculate_summary_data():
