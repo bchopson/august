@@ -1,5 +1,5 @@
+apiflask[yaml]
 arrow
-connexion[swagger-ui]
 flask
 Flask-SQLAlchemy
 psycopg2

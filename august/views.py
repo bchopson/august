@@ -1,44 +1,43 @@
-import datetime as dt
-
-import flask
+from apiflask import APIBlueprint
 
 from august import model
 from august.model import db
+from august.schema import (
+    MAX_PER_PAGE,
+    WeatherDataQuerySchema,
+    WeatherDataSchema,
+    WeatherDataSummaryQuerySchema,
+    WeatherDataSummarySchema,
+)
 
-api = flask.Blueprint("api", __name__, url_prefix="/api")
-
-MAX_PER_PAGE = 100
+api = APIBlueprint("api", __name__, url_prefix="/api")
 
 
 @api.route("/weather")
-def weather_data():
+@api.input(WeatherDataQuerySchema, location="query")
+@api.output(WeatherDataSchema(many=True))
+def weather_data(query_params: dict):
     stmt = db.select(model.WeatherData).order_by(
         model.WeatherData.date, model.WeatherData.station_id
     )
-    if station_id := flask.request.args.get("station_id"):
+    if station_id := query_params.get("station_id"):
         stmt = stmt.where(model.WeatherData.station_id == station_id)
-    if date_str := flask.request.args.get("date"):
-        try:
-            date = dt.date.fromisoformat(date_str)
-            stmt = stmt.where(model.WeatherData.date == date)
-        except ValueError:
-            flask.abort(400)
-    page = db.paginate(stmt, max_per_page=MAX_PER_PAGE)
-    return flask.jsonify(page.items)
+    if date := query_params.get("date"):
+        stmt = stmt.where(model.WeatherData.date == date)
+    paged = db.paginate(stmt, max_per_page=MAX_PER_PAGE)
+    return paged.items
 
 
 @api.route("/weather/stats")
-def weather_data_summary():
+@api.input(WeatherDataSummaryQuerySchema, location="query")
+@api.output(WeatherDataSummarySchema(many=True))
+def weather_data_summary(query_params: dict):
     stmt = db.select(model.WeatherDataSummary).order_by(
         model.WeatherDataSummary.year, model.WeatherDataSummary.station_id
     )
-    if station_id := flask.request.args.get("station_id"):
+    if station_id := query_params.get("station_id"):
         stmt = stmt.where(model.WeatherDataSummary.station_id == station_id)
-    if year_str := flask.request.args.get("year"):
-        try:
-            year = int(year_str)
-            stmt = stmt.where(model.WeatherDataSummary.year == year)
-        except ValueError:
-            flask.abort(400)
-    page = db.paginate(stmt, max_per_page=MAX_PER_PAGE)
-    return flask.jsonify(page.items)
+    if year := query_params.get("year"):
+        stmt = stmt.where(model.WeatherDataSummary.year == year)
+    paged = db.paginate(stmt, max_per_page=MAX_PER_PAGE)
+    return paged.items

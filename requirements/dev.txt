@@ -4,33 +4,20 @@
 #
 #    pip-compile dev.in
 #
+apiflask[yaml]==1.2.1
+    # via -r common.txt
+apispec==6.0.2
+    # via
+    #   -r common.txt
+    #   apiflask
 arrow==1.2.3
     # via -r common.txt
-attrs==22.2.0
-    # via
-    #   -r common.txt
-    #   jsonschema
-certifi==2022.12.7
-    # via
-    #   -r common.txt
-    #   requests
 cfgv==3.3.1
     # via pre-commit
-charset-normalizer==3.0.1
-    # via
-    #   -r common.txt
-    #   requests
 click==8.1.3
     # via
     #   -r common.txt
-    #   clickclick
     #   flask
-clickclick==20.10.2
-    # via
-    #   -r common.txt
-    #   connexion
-connexion[swagger-ui]==2.14.2
-    # via -r common.txt
 distlib==0.3.6
     # via virtualenv
 filelock==3.9.0
@@ -38,8 +25,18 @@ filelock==3.9.0
 flask==2.2.2
     # via
     #   -r common.txt
-    #   connexion
+    #   apiflask
+    #   flask-httpauth
+    #   flask-marshmallow
     #   flask-sqlalchemy
+flask-httpauth==4.7.0
+    # via
+    #   -r common.txt
+    #   apiflask
+flask-marshmallow==0.14.0
+    # via
+    #   -r common.txt
+    #   apiflask
 flask-sqlalchemy==3.0.3
     # via -r common.txt
 greenlet==2.0.2
@@ -48,49 +45,38 @@ greenlet==2.0.2
     #   sqlalchemy
 identify==2.5.18
     # via pre-commit
-idna==3.4
-    # via
-    #   -r common.txt
-    #   requests
-inflection==0.5.1
-    # via
-    #   -r common.txt
-    #   connexion
 itsdangerous==2.1.2
     # via
     #   -r common.txt
-    #   connexion
     #   flask
 jinja2==3.1.2
     # via
     #   -r common.txt
     #   flask
-    #   swagger-ui-bundle
-jsonschema==4.17.3
-    # via
-    #   -r common.txt
-    #   connexion
 markupsafe==2.1.2
     # via
     #   -r common.txt
     #   jinja2
     #   werkzeug
+marshmallow==3.19.0
+    # via
+    #   -r common.txt
+    #   flask-marshmallow
+    #   webargs
 nodeenv==1.7.0
     # via pre-commit
 packaging==23.0
     # via
     #   -r common.txt
-    #   connexion
+    #   apispec
+    #   marshmallow
+    #   webargs
 platformdirs==3.0.0
     # via virtualenv
 pre-commit==3.0.4
     # via -r dev.in
 psycopg2==2.9.5
     # via -r common.txt
-pyrsistent==0.19.3
-    # via
-    #   -r common.txt
-    #   jsonschema
 python-dateutil==2.8.2
     # via
     #   -r common.txt
@@ -98,16 +84,12 @@ python-dateutil==2.8.2
 pyyaml==6.0
     # via
     #   -r common.txt
-    #   clickclick
-    #   connexion
+    #   apiflask
     #   pre-commit
-requests==2.28.2
-    # via
-    #   -r common.txt
-    #   connexion
 six==1.16.0
     # via
     #   -r common.txt
+    #   flask-marshmallow
     #   python-dateutil
 sqlalchemy==2.0.3
     # via
@@ -116,24 +98,19 @@ sqlalchemy==2.0.3
     #   sqlalchemy-utils
 sqlalchemy-utils==0.40.0
     # via -r common.txt
-swagger-ui-bundle==0.0.9
-    # via
-    #   -r common.txt
-    #   connexion
 typing-extensions==4.5.0
     # via
     #   -r common.txt
     #   sqlalchemy
-urllib3==1.26.14
-    # via
-    #   -r common.txt
-    #   requests
 virtualenv==20.19.0
     # via pre-commit
+webargs==8.2.0
+    # via
+    #   -r common.txt
+    #   apiflask
 werkzeug==2.2.3
     # via
     #   -r common.txt
-    #   connexion
     #   flask
 
 # The following packages are considered to be unsafe in a requirements file:
