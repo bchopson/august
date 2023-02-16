@@ -18,7 +18,7 @@ click==8.1.3
     #   flask
 clickclick==20.10.2
     # via connexion
-connexion==2.14.2
+connexion[swagger-ui]==2.14.2
     # via -r common.in
 flask==2.2.2
     # via
@@ -38,7 +38,9 @@ itsdangerous==2.1.2
     #   connexion
     #   flask
 jinja2==3.1.2
-    # via flask
+    # via
+    #   flask
+    #   swagger-ui-bundle
 jsonschema==4.17.3
     # via connexion
 markupsafe==2.1.2
@@ -67,6 +69,8 @@ sqlalchemy==2.0.3
     #   sqlalchemy-utils
 sqlalchemy-utils==0.40.0
     # via -r common.in
+swagger-ui-bundle==0.0.9
+    # via connexion
 typing-extensions==4.5.0
     # via sqlalchemy
 urllib3==1.26.14

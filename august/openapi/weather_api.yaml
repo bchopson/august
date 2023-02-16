@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  title: August Weather Data API
+  description: Historical weather data API
+  version: 0.0.1
+
+paths:
+  /weather:
+    get:
+      x-openapi-router-controller: august.views
+      operationId: weather_data
+      responses:
+        '200':
+          description: A JSON array of weather data
+          content:
+            application/json:
+              schema:
+                type: array

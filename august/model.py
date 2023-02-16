@@ -1,9 +1,14 @@
+import datetime as dt
+from dataclasses import dataclass
+from decimal import Decimal
+
 import arrow
 import sqlalchemy as sa
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy_utils.types import ArrowType
 
-from august.app import db
+db = SQLAlchemy()
 
 
 class UpsertMixin:
@@ -16,30 +21,32 @@ class UpsertMixin:
         db.session.execute(stmt)
 
 
+@dataclass
 class WeatherData(UpsertMixin, db.Model):
     __upsert_index_elements__ = ["station_id", "date"]
 
-    id = db.Column(db.Integer, primary_key=True)
-    station_id = db.Column(db.String, nullable=False)
-    date = db.Column(db.Date, nullable=False)
-    max_temperature = db.Column(db.Integer)
-    min_temperature = db.Column(db.Integer)
-    precipitation = db.Column(db.Integer)
+    id: int = db.Column(db.Integer, primary_key=True)
+    station_id: str = db.Column(db.String, nullable=False)
+    date: dt.date = db.Column(db.Date, nullable=False)
+    max_temperature: int = db.Column(db.Integer)
+    min_temperature: int = db.Column(db.Integer)
+    precipitation: int = db.Column(db.Integer)
 
     __table_args__ = (
         sa.UniqueConstraint(station_id, date, name="uq_weather_data_station_id_date"),
     )
 
 
+@dataclass
 class WeatherDataSummary(UpsertMixin, db.Model):
     __upsert_index_elements__ = ["station_id", "year"]
 
-    id = db.Column(db.Integer, primary_key=True)
-    station_id = db.Column(db.String, nullable=False)
-    year = db.Column(db.Integer, nullable=False)
-    avg_max_temperature = db.Column(db.Numeric)
-    avg_min_temperature = db.Column(db.Numeric)
-    total_precipitation = db.Column(db.Numeric)
+    id: int = db.Column(db.Integer, primary_key=True)
+    station_id: str = db.Column(db.String, nullable=False)
+    year: int = db.Column(db.Integer, nullable=False)
+    avg_max_temperature: Decimal = db.Column(db.Numeric)
+    avg_min_temperature: Decimal = db.Column(db.Numeric)
+    total_precipitation: Decimal = db.Column(db.Numeric)
 
     __table_args__ = (
         sa.UniqueConstraint(
@@ -48,11 +55,12 @@ class WeatherDataSummary(UpsertMixin, db.Model):
     )
 
 
+@dataclass
 class ImportRun(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    count = db.Column(db.Integer)
-    start_utc = db.Column(ArrowType)
-    end_utc = db.Column(ArrowType)
+    id: int = db.Column(db.Integer, primary_key=True)
+    count: int = db.Column(db.Integer)
+    start_utc: arrow.Arrow = db.Column(ArrowType)
+    end_utc: arrow.Arrow = db.Column(ArrowType)
 
     @classmethod
     def start(cls):
